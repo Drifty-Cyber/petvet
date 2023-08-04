@@ -1,0 +1,91 @@
+extends base
+
+include _reviewCard
+            
+//- block append head 
+    
+
+
+mixin overviewBox(label, text, icon)
+    .overview-box__detail
+        svg.overview-box__icon
+            use(xlink:href=`/img/icons.svg#icon-${icon}`)
+        span.overview-box__label= label
+        span.overview-box__text= text
+
+block content
+    section.section-header
+        .header__hero
+            .header__hero-overlay &nbsp;
+            img.header__hero-img(src=`/img/tours/${pet.imageCover}`, alt=`${pet.name}`)
+
+        .heading-box
+            h1.heading-primary
+                span= pet.name
+            .heading-box__group
+                .heading-box__detail
+                    svg.heading-box__icon
+                        use(xlink:href='/img/icons.svg#icon-calendar')
+                    span.heading-box__text= `${pet.age} year old dog`
+                .heading-box__detail
+                    svg.heading-box__icon
+                        use(xlink:href='/img/icons.svg#icon-map-pin')
+                    span.heading-box__text= `Breed:  ${pet.breed}`
+
+    section.section-description
+        .overview-box
+            div
+                .overview-box__group
+                    h2.heading-secondary.ma-bt-lg Quick facts
+
+                    - const age = pet.age >= 1 ? `${pet.age} year old` : `${pet.age} years old`
+                    +overviewBox('Age', age, 'calendar')
+                    +overviewBox('Size', pet.size, 'trending-up')
+                    +overviewBox('Gender', pet.gender, 'user')
+                    +overviewBox('Rating', `${pet.ratingsAverage} / 5`, 'star')
+
+
+                .overview-box__group
+                    h2.heading-secondary.ma-bt-lg Your Pet doctors
+                    each doctor in pet.doctors
+                        .overview-box__detail
+                            img.overview-box__img(src=`/img/users/${doctor.photo}`, alt=doctor.name)
+                            - if (doctor.role === 'vet-doctor')
+                                span.overview-box__label Vet Doctor
+                            - if (doctor.role === 'user')
+                                span.overview-box__label Seller
+                            span.overview-box__text=doctor.name
+        .description-box
+            h2.heading-secondary.ma-bt-lg= `About ${pet.name} (${pet.breed})`
+            - const paragraphs = pet.description.split('\n')
+            each p in paragraphs
+                p.description__text= p
+
+    section.section-pictures
+        each img, i in pet.images
+            .picture-box
+                img.picture-box__img(src=`/img/tours/${img}`, alt=`Pet Image ${i + 1}`, class=`picture-box__img--${i + 1}`)
+        
+
+    section.section-map
+        #map
+
+    section.section-reviews
+        .reviews
+            each review in pet.reviews
+                +reviewCard(review)
+
+    section.section-cta
+        .cta
+            .cta__img.cta__img--logo
+                img(src='/img/logo-white.png', alt='Petvet logo')
+            img.cta__img.cta__img--1(src=`/img/tours/${pet.images[1]}`, alt='Pet picture')
+            img.cta__img.cta__img--2(src=`/img/tours/${pet.images[2]}`, alt='Pet picture')
+            .cta__content
+                h2.heading-secondary What are you waiting for?
+                p.cta__text= `Get not just a pet but a companion. Infinite memories. Make it yours today!`
+
+                if user
+                    button.btn.btn--green.span-all-rows#buy-pet(data-pet-id=`${pet._id}`) Buy a pet now!
+                else
+                    a.btn.btn--green.span-all-rows(href='/login') Buy a pet now!
