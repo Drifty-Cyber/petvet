@@ -20,6 +20,9 @@ router.get('/pet/:slug', authController.isLoggedIn, viewController.getPet);
 // LOGIN ROUTE
 router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
 
+// SIGNUP ROUTE
+router.get('/signup', authController.isLoggedIn, viewController.getSignupForm);
+
 // USER ACCOUNT PAGE
 router.get('/me', authController.protect, viewController.getAccount);
 
