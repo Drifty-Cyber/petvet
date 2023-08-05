@@ -68521,25 +68521,6 @@ if (userDataForm) userDataForm.addEventListener('submit', function (e) {
 // SIGNUP
 if (signupForm) signupForm.addEventListener('submit', function (e) {
   e.preventDefault();
-
-  // const form = new FormData();
-  // form.append('name', document.getElementById('name'));
-  // form.append('email', document.getElementById('email').value);
-  // form.append('password', document.getElementById('password').value);
-  // form.append(
-  //   'passwordConfirm',
-  //   document.getElementById('passwordConfirm').value
-  // );
-  // const errMessage = document.querySelector('.password-error');
-
-  // if (password !== passwordConfirm) {
-  //   errMessage.textContent = `*passwords do not match`;
-  // } else {
-  //   errMessage.textContent = '';
-  //   signup(email, password, name, passwordConfirm);
-  // }
-  // e.preventDefault();
-
   var name = document.getElementById('name').value;
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
@@ -68618,7 +68599,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50042" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50636" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
