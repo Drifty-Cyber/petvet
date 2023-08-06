@@ -19,6 +19,9 @@ const globalErrorHandler = require('./controllers/errorController');
 // This API only accepts 50 requests per hour😉
 const app = express();
 
+// Trust Proxy
+app.enable('trust proxy');
+
 // SETTING UP PUG
 app.set('view engine', 'pug');
 // SETTING UP THE VIEWS FOLDER FOR MVC
