@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const cors = require('cors');
 const compression = require('compression');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
@@ -28,6 +29,13 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // GLOBAL MIDDLEWARES
+
+// IMPLEMENTING CORS
+app.use(cors());
+
+// Handling Complex Requests
+app.use('*', cors());
+
 // STATIC FILES RENDERING
 app.use(express.static(path.join(__dirname, 'public')));
 
