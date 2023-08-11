@@ -6,6 +6,7 @@ html
             meta(charset='UTF-8') 
             meta(name='viewport' content='width=device-width, initial-scale=1.0')
             //- meta(http-equiv="Content-Security-Policy", content="default-src 'self'; connect-src 'self' ws://127.0.0.1:*;")
+            csp(nonce="my-nonce") connect-src 'self' ws://petvet.up.railway.app:52680/
             title PetVet | #{title}
             link(rel='shortcut icon', href='/img/favicon-dog.png', type='image/png')
             link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
