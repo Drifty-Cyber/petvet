@@ -68528,10 +68528,8 @@ if (signupForm) signupForm.addEventListener('submit', function (e) {
   var errMessage = document.querySelector('.password-error');
   console.log(name, email, password, passwordConfirm);
   if (password !== passwordConfirm) {
-    // errMessage.textContent = `*passwords do not match`;
     (0, _alerts.showAlert)('error', 'Passwords do not match');
   }
-  // errMessage.textContent = '';
   (0, _signup.signup)(name, email, password, passwordConfirm);
 });
 
@@ -68599,7 +68597,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50636" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52680" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
