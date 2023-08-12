@@ -3,6 +3,16 @@ const Pet = require('../models/petModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+
+  if (alert === 'booking')
+    res.locals.alert =
+      "Your purchase was successful! Please check your email for a confirmation. If your purchase doesn't show up here immediately, please come back later.";
+
+  next();
+};
+
 exports.getOverview = catchAsync(async (req, res) => {
   // 1) Get pet data
   // 2) build template

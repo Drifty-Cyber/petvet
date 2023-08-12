@@ -2,10 +2,15 @@ const express = require('express');
 const viewController = require('../controllers/viewController');
 const authController = require('../controllers/authController');
 const bookingController = require('../controllers/bookingController');
+const app = require('../app');
 
 const router = express.Router();
 
 // router.use(authController.isLoggedIn);
+
+// ALERTS MIDDLEWARE
+// Get query on all requests
+router.use(viewController.alerts);
 
 router.get(
   '/',

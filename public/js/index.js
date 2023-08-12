@@ -90,3 +90,7 @@ if (buyBtn)
     const { petId } = e.target.dataset;
     buyPet(petId);
   });
+
+// ALERTS
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alertMessage) showAlert('success', alertMessage, 12);
