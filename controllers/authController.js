@@ -56,6 +56,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   } else if (process.env.NODE_ENV === 'development') {
     const url = `${req.protocol}://${req.get('host')}/me`;
     await new Email(newUser, url).sendWelcome();
+    // console.log('Development');
   }
 
   // const url = `${req.protocol}://${req.get('host')}/me`;
