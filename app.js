@@ -16,6 +16,7 @@ const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const { webhookcheckout } = require('./controllers/bookingController');
 
 // This API only accepts 50 requests per hour😉
 const app = express();
@@ -65,6 +66,13 @@ const limiter = rateLimit({
     'Too many requests from this IP. For security reasons, please try again in an hour!',
 });
 app.use('/api', limiter);
+
+// STRIPE WEBHOOK CHECKOUT
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookcheckout
+);
 
 // EXPRESS MIDDLEWARE - Parse body data
 app.use(express.json({ limit: '10kb' }));

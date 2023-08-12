@@ -6,7 +6,7 @@ const petSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'A tour must have a name'],
+      required: [true, 'A pet must have a name'],
       unique: true,
     },
     id: String,
@@ -49,7 +49,7 @@ const petSchema = new mongoose.Schema(
     },
     imageCover: {
       type: String,
-      required: [true, 'A tour must have a cover image'],
+      required: [true, 'A pet must have a cover image'],
     },
     images: [String],
     personality: String,
