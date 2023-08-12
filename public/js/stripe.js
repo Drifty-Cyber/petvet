@@ -11,9 +11,7 @@ const stripe = Stripe(
 export const buyPet = async (petId) => {
   try {
     // 1) Get checkout session from API
-    const session = await axios(
-      `http://127.0.0.1:8000/api/v1/bookings/checkout-session/${petId}`
-    );
+    const session = await axios(`/api/v1/bookings/checkout-session/${petId}`);
     // console.log(session);
 
     // 2) Create checkout form + charge card  (REDIRECT TO CHECKOUT PAGE)
