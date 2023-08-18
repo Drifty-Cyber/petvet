@@ -1,10 +1,18 @@
 const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 const sharp = require('sharp');
 const Pet = require('../models/petModel');
 // const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const multerStorage = multer.memoryStorage();
 
@@ -29,6 +37,9 @@ exports.uploadPetImages = upload.fields([
 exports.resizePetImages = catchAsync(async (req, res, next) => {
   // console.log(req.files);
   if (!req.files.imageCover || !req.files.images) return next();
+
+  // UPLOAD TO CLOUDINARY
+  const result = await cloudinary.uploader.upload(req.file.buffer);
 
   // 1) Process "imageCover"
   // PUTTING "imageCover" on request body so it can be updated
@@ -55,6 +66,8 @@ exports.resizePetImages = catchAsync(async (req, res, next) => {
       req.body.images.push(filename);
     })
   );
+
+  res.json(result);
 
   next();
 });
