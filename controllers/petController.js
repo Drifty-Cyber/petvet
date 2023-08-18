@@ -39,7 +39,7 @@ exports.resizePetImages = catchAsync(async (req, res, next) => {
   if (!req.files.imageCover || !req.files.images) return next();
 
   // UPLOAD TO CLOUDINARY
-  const result = await cloudinary.uploader.upload(req.file.buffer);
+  const result = await cloudinary.uploader.upload(req.files.buffer);
 
   // 1) Process "imageCover"
   // PUTTING "imageCover" on request body so it can be updated
