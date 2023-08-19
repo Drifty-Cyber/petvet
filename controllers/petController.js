@@ -1,4 +1,5 @@
 const multer = require('multer');
+const path = require('path');
 const cloudinary = require('cloudinary').v2;
 const sharp = require('sharp');
 const Pet = require('../models/petModel');
@@ -74,17 +75,12 @@ exports.resizePetImages = catchAsync(async (req, res, next) => {
     overwrite: true,
   };
 
-  try {
-    // Upload the image
-    const result = await cloudinary.uploader.upload(
-      `public\\img\tours\tour-6-3.jpg`,
-      options
-    );
-    console.log(result);
-    return result.public_id;
-  } catch (error) {
-    console.error(error);
-  }
+  // Upload the image
+  const result = await cloudinary.uploader.upload(
+    'C:\\Users\\Drifty\\Desktop\\PetVet\\public\\img\\tours\\tour-1-1.jpg',
+    options
+  );
+  console.log(result);
 
   next();
 });
