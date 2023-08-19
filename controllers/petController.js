@@ -8,11 +8,13 @@ const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 
 // Configure Cloudinary
+// Return "https" URLs by setting secure: true
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
 });
+
+// Log the configuration
+// console.log(cloudinary.config());
 
 const multerStorage = multer.memoryStorage();
 
@@ -37,9 +39,6 @@ exports.uploadPetImages = upload.fields([
 exports.resizePetImages = catchAsync(async (req, res, next) => {
   // console.log(req.files);
   if (!req.files.imageCover || !req.files.images) return next();
-
-  // UPLOAD TO CLOUDINARY
-  const result = await cloudinary.uploader.upload(req.files.buffer);
 
   // 1) Process "imageCover"
   // PUTTING "imageCover" on request body so it can be updated
@@ -67,7 +66,25 @@ exports.resizePetImages = catchAsync(async (req, res, next) => {
     })
   );
 
-  res.json(result);
+  // Use the uploaded file's name as the asset's public ID and
+  // allow overwriting the asset with new versions
+  const options = {
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+  };
+
+  try {
+    // Upload the image
+    const result = await cloudinary.uploader.upload(
+      `public\\img\tours\tour-6-3.jpg`,
+      options
+    );
+    console.log(result);
+    return result.public_id;
+  } catch (error) {
+    console.error(error);
+  }
 
   next();
 });
